@@ -1,0 +1,14 @@
+# Uppercase to lowercase redirect
+<IFModule mod_rewrite.c>
+  # Ignore files
+  RewriteCond %{REQUEST_FILENAME} !-f
+
+  # Depending on caching setup, might need to manually ignore cached filetypes
+  RewriteCond %{REQUEST_URI} !\.(jpg|jpeg|webp|js|css)$
+
+  # Make sure LC URL is a URL
+  RewriteCond expr "tolower(%{REQUEST_URI}) =~ /(.*)/"
+
+  # Execute the lowercasing
+  RewriteRule [A-Z] %1 [R=301,L]
+</IFModule>
